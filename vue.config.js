@@ -1,15 +1,19 @@
+'use strict'
+const path = require('path')
+
 module.exports = {
   pages: {
     index: {
       // page 的入口
-      entry: "example/main.ts",
+      entry: 'example/main.ts',
       // 模板来源
-      template: "public/index.html",
+      template: 'public/index.html',
       // 在 dist/index.html 的输出
-      filename: "index.html"
+      filename: 'index.html'
     }
   },
   chainWebpack: config => {
-    config.resolve.alias.set("@", "/Users/plusli/Develop/微前端/qiankun-vue-main/example");
+    config.resolve.alias.set('@', path.resolve(__dirname, './example'))
+      .set('src', path.resolve(__dirname, './src'))
   }
-};
+}

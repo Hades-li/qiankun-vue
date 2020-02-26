@@ -1,15 +1,24 @@
 {
-  "name": "qiankun-vue-main",
+  "name": "qiankun-vue",
   "version": "0.1.0",
-  "private": true,
+  "description": "this is plugin for vue. base is qiankun. qiankun is singleSpa lib",
+  "private": false,
+  "main": "dist/qiankunVue.umd.min.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hades-li/qiankun-vue.git"
+  },
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build:lib": "vue-cli-service build --target lib --name qiankunVue src/index.ts",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "core-js": "^3.6.4",
+    "qiankun": "^1.3.14",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.2",
     "vue-property-decorator": "^8.3.0",
