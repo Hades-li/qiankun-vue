@@ -7,6 +7,7 @@ declare interface Props extends Object {
   isFramework: boolean;
   callback: (appInstance: any, otherData?: any) => void;
 }
+
 interface RegisterAppOpt {
   name: string;
   entry: string;
@@ -21,7 +22,7 @@ function genActiveRule(url: string) {
 class QiankunVue {
   public appHtml = ''
   public mainApp?: Vue
-  public appMap: {[key: string]: any} = {}
+  public appMap: { [key: string]: any } = {}
   public mountedApp: any = {}
   private registerAppOpts: Array<RegisterAppOpt> = []
   private isStart = false
@@ -91,8 +92,8 @@ class QiankunVue {
     let _qiankunVue: QiankunVue | undefined
     Vue.mixin({
       beforeCreate(): void {
-        _qiankunVue = this.$options.qiankunVue
-        if (_qiankunVue) {
+        if (this.$options.qiankunVue) {
+          _qiankunVue = this.$options.qiankunVue
           _qiankunVue.mainApp = this
         }
       }

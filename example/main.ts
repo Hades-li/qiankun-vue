@@ -25,4 +25,4 @@ new Vue({
   store,
   qiankunVue,
   render: h => h(App)
-}).$mount('#app')
+}).$mount('#main')

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Framework from '../views/framework/index.vue'
 
 Vue.use(VueRouter)
 
@@ -18,10 +19,16 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ '../views/About.vue')
+  },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: Framework
   }
 ]
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 })
 

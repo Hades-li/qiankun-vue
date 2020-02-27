@@ -14,13 +14,18 @@ module.exports = {
     '@vue/standard',
     // '@vue/typescript'
   ],
+  // parserOptions: {
+  //   ecmaVersion: 2020
+  // },
   parserOptions: {
-    ecmaVersion: 2020
+    parser: '@typescript-eslint/parser',
+    sourceType: 'module'
   },
   rules: {
     "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
-    '@typescript-eslint/no-var-requires': 'off',
+    'no-unused-vars': 'off',
+    'no-var-requires': 'off',
     'space-before-function-paren': [2, 'never'],
     'vue/array-bracket-spacing': 'error',
     'vue/arrow-spacing': 'error',
