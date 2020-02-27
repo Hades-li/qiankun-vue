@@ -1,10 +1,11 @@
 {
   "name": "qiankun-vue",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "this is plugin for vue. base is qiankun. qiankun is singleSpa lib",
   "private": false,
   "main": "dist/qiankunVue.umd.min.js",
   "license": "MIT",
+  "types": "types/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/Hades-li/qiankun-vue.git"
