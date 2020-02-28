@@ -12,8 +12,25 @@ module.exports = {
       filename: 'index.html'
     }
   },
+  parallel: false,
   chainWebpack: config => {
-    config.resolve.alias.set('@', path.resolve(__dirname, './example'))
+    if (process.env.NODE_ENV === 'production') {
+      // disable cache (not sure if this is actually useful...)
+      // config.module.rule('ts').uses.delete('cache-loader')
+      /*config.module
+        .rule('ts')
+        .use('ts-loader')
+        .loader('ts-loader')
+        .tap(opts => {
+          opts.transpileOnly = false
+          opts.happyPackMode = false
+          return opts
+        })*/
+    }
+
+    config.resolve.alias
+      .set('@', path.resolve(__dirname, './example'))
       .set('src', path.resolve(__dirname, './src'))
+      .end()
   }
 }
