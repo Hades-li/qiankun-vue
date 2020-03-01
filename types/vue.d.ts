@@ -1,5 +1,5 @@
 import Vue from 'vue/types/vue'
-import QiankunVue from '../src/index'
+import QiankunVue from './index'
 import { RegistrableApp } from 'qiankun'
 
 declare module 'vue/types/options' {

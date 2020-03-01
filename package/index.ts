@@ -15,7 +15,7 @@ interface RegisterAppOpt {
   other?: any;
 }
 
-function genActiveRule(url: string) {
+function genActiveRule (url: string) {
   return (localhost: Location) => localhost.pathname.startsWith(url)
 }
 
@@ -29,11 +29,11 @@ class QiankunVue {
   private renderCallback?: (appHtml: string) => void
   private afterMountedCallback?: (app: RegistrableApp) => void
 
-  constructor(registerAppOpts: Array<any>) {
+  constructor (registerAppOpts: Array<any>) {
     this.registerAppOpts = registerAppOpts
   }
 
-  private render({ appContent, loading }: { appContent: string; loading: boolean }) {
+  private render ({ appContent, loading }: { appContent: string; loading: boolean }) {
     if (appContent !== this.appHtml) {
       this.appHtml = appContent
       if (this.renderCallback) {
@@ -50,7 +50,7 @@ class QiankunVue {
     this.afterMountedCallback = callback
   }
 
-  public start(opts?: StartOpts) {
+  public start (opts?: StartOpts) {
     // console.log(this)
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this
@@ -91,7 +91,7 @@ class QiankunVue {
   static install = (Vue: typeof _Vue) => {
     let _qiankunVue: QiankunVue | undefined
     Vue.mixin({
-      beforeCreate(): void {
+      beforeCreate (): void {
         if (this.$options.qiankunVue) {
           _qiankunVue = this.$options.qiankunVue
           _qiankunVue.mainApp = this
@@ -100,12 +100,12 @@ class QiankunVue {
     })
 
     Object.defineProperty(Vue.prototype, '$qiankunVue', {
-      get() {
+      get () {
         return _qiankunVue
       }
     })
     Object.defineProperty(Vue.prototype, '$renderSuccess', {
-      get() {
+      get () {
         if (_qiankunVue) {
           return _qiankunVue.renderSuccess
         }
@@ -113,7 +113,7 @@ class QiankunVue {
       }
     })
     Object.defineProperty(Vue.prototype, '$afterMounted', {
-      get() {
+      get () {
         if (_qiankunVue) {
           return _qiankunVue.afterMounted
         }

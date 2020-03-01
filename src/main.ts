@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import QiankunVue from 'src/index'
+import QiankunVue from 'package/index'
 
 Vue.config.productionTip = false
 
@@ -15,9 +15,9 @@ const qiankunVue = new QiankunVue([
     activeUrl: '/dashboard'
   },
   {
-    name: 'example',
+    name: 'src',
     entry: '//localhost:5002',
-    activeUrl: '/example'
+    activeUrl: '/src'
   }
 ])
 new Vue({

@@ -10,9 +10,9 @@ import { Component, Vue } from 'vue-property-decorator'
   name: 'Framework'
 })
 export default class extends Vue {
-  private appHtml: string = ''
+  private appHtml = ''
 
-  mounted() {
+  mounted () {
     console.log(this)
     this.$renderSuccess((html) => {
       console.log(html)
