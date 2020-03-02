@@ -12,7 +12,7 @@
     "sourceMap": true,
     "baseUrl": ".",
     "declaration": true,
-//    "declarationDir": "./types",
+    //    "declarationDir": "./types",
     "types": [
       "webpack-env",
       "mocha",
@@ -21,6 +21,9 @@
     "paths": {
       "@/*": [
         "example/*"
+      ],
+      "src/*": [
+        "src/*"
       ]
     },
     "lib": [
@@ -31,15 +34,12 @@
     ]
   },
   "include": [
-    "types/**/*.ts",
-    "types/**/*.tsx",
-    "types/**/*.vue",
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "package/**/*.ts",
-    "package/**/*.tsx",
-    "package/**/*.vue",
+    "example/**/*.ts",
+    "example/**/*.tsx",
+    "example/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
   ],

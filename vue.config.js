@@ -1,4 +1,5 @@
 'use strict'
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path')
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -19,14 +20,21 @@ module.exports = {
     if (isProd) {
       config.entry = {
         index: [
-          'package/index.ts'
+          'src/index.ts'
+        ]
+      }
+    }
+    if (!isProd) {
+      config.entry = {
+        index: [
+          '@/main.ts'
         ]
       }
     }
   },
   chainWebpack: config => {
     if (isProd) {
-      // config.entry('index').clear().add(path.resolve(__dirname, 'package/index.ts')).end()
+      // config.entry('index').clear().add(path.resolve(__dirname, 'src/index.ts')).end()
       config.output
         .filename('index.js')
         .libraryTarget('umd')
@@ -54,8 +62,9 @@ module.exports = {
     }
 
     config.resolve.alias
-      // .set('@', path.resolve(__dirname, './src'))
-      .set('package', path.resolve(__dirname, './package'))
+      .set('src', path.resolve(__dirname, './src'))
+      .set('@', path.resolve(__dirname, './example'))
+      .set('package', path.resolve(__dirname, './src'))
       .end()
   }
 }

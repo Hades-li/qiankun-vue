@@ -1,6 +1,20 @@
 import { registerMicroApps, RegistrableApp, start, StartOpts } from 'qiankun'
-// import Vue, { ComponentOptions, VueConstructor } from 'vue'
+import { ComponentOptions } from 'vue'
 import { Vue as _Vue } from 'vue/types/vue'
+
+declare module 'vue/types/options' {
+  interface ComponentOptions<V extends Vue> {
+    qiankunVue?: QiankunVue;
+  }
+}
+
+declare module 'vue/types/vue' {
+  interface Vue {
+    $qiankunVue: QiankunVue;
+    $renderSuccess: (callback: (appHtml: string) => void) => void;
+    $afterMounted: (callback: (app: RegistrableApp) => void) => void;
+  }
+}
 
 declare interface Props extends Object {
   mainInstance: Vue;
@@ -29,7 +43,7 @@ class QiankunVue {
   private renderCallback?: (appHtml: string) => void
   private afterMountedCallback?: (app: RegistrableApp) => void
 
-  constructor (registerAppOpts: Array<any>) {
+  constructor (registerAppOpts: Array<RegisterAppOpt>) {
     this.registerAppOpts = registerAppOpts
   }
 
@@ -50,8 +64,7 @@ class QiankunVue {
     this.afterMountedCallback = callback
   }
 
-  public start (opts?: StartOpts) {
-    // console.log(this)
+  public start = (opts?: StartOpts) => {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this
     if (!this.isStart) {
@@ -93,8 +106,12 @@ class QiankunVue {
     Vue.mixin({
       beforeCreate (): void {
         if (this.$options.qiankunVue) {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+          // @ts-ignore
           _qiankunVue = this.$options.qiankunVue
-          _qiankunVue.mainApp = this
+          if (_qiankunVue) {
+            _qiankunVue.mainApp = this
+          }
         }
       }
     })

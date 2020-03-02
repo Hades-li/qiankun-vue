@@ -13,12 +13,12 @@
   "files": [
     "types/*.d.ts",
     "dist/*.js",
-    "package/*.ts"
+    "src/*.ts"
   ],
   "scripts": {
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build:lib": "vue-cli-service build --target lib --name qiankunVue package/index.ts",
+    "build:lib": "vue-cli-service build --target lib --name qiankunVue src/index.ts",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },

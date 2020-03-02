@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import QiankunVue from 'package/index'
+import QiankunVue from 'src/index'
 
 Vue.config.productionTip = false
 
