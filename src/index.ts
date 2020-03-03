@@ -42,6 +42,7 @@ class QiankunVue {
   private isStart = false
   private renderCallback?: (appHtml: string) => void
   private afterMountedCallback?: (app: RegistrableApp) => void
+  private afterUnmountCallback?: (app: RegistrableApp) => void
 
   constructor (registerAppOpts: Array<RegisterAppOpt>) {
     this.registerAppOpts = registerAppOpts
@@ -62,6 +63,10 @@ class QiankunVue {
 
   public afterMounted = (callback: (app: RegistrableApp) => void) => {
     this.afterMountedCallback = callback
+  }
+
+  public afterUnMounted = (callback: (app: RegistrableApp) => void) => {
+    this.afterUnmountCallback = callback
   }
 
   public start = (opts?: StartOpts) => {
@@ -94,6 +99,12 @@ class QiankunVue {
               self.afterMountedCallback(app)
             }
             return Promise.resolve()
+          },
+          afterUnmount: (app) => {
+            if (self.afterUnmountCallback) {
+              self.afterUnmountCallback(app)
+            }
+            return Promise.resolve()
           }
         })
       start(opts)
@@ -106,8 +117,6 @@ class QiankunVue {
     Vue.mixin({
       beforeCreate (): void {
         if (this.$options.qiankunVue) {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-          // @ts-ignore
           _qiankunVue = this.$options.qiankunVue
           if (_qiankunVue) {
             _qiankunVue.mainApp = this
@@ -133,6 +142,14 @@ class QiankunVue {
       get () {
         if (_qiankunVue) {
           return _qiankunVue.afterMounted
+        }
+        return undefined
+      }
+    })
+    Object.defineProperty(Vue.prototype, '$afterUnMounted', {
+      get() {
+        if (_qiankunVue) {
+          return _qiankunVue.afterUnmountCallback
         }
         return undefined
       }

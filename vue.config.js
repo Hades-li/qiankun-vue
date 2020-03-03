@@ -16,7 +16,7 @@ module.exports = {
   // },
   productionSourceMap: false,
   parallel: false,
-  configureWebpack: config => {
+  /*configureWebpack: config => {
     if (isProd) {
       config.entry = {
         index: [
@@ -31,10 +31,11 @@ module.exports = {
         ]
       }
     }
-  },
+  },*/
   chainWebpack: config => {
+    // prd
     if (isProd) {
-      // config.entry('index').clear().add(path.resolve(__dirname, 'src/index.ts')).end()
+      config.entry('app').clear().add('./src/index.ts')
       config.output
         .filename('index.js')
         .libraryTarget('umd')
@@ -60,11 +61,15 @@ module.exports = {
       config.optimization.splitChunks(false) // 是否代码分割
       // config.optimization.minimize(false) // 是否打开代码压缩
     }
+    // dev
+    if (!isProd) {
+      config.entry('app').clear().add('./example/main.ts')
+    }
 
     config.resolve.alias
       .set('src', path.resolve(__dirname, './src'))
       .set('@', path.resolve(__dirname, './example'))
-      .set('package', path.resolve(__dirname, './src'))
+      .set('packages', path.resolve(__dirname, './packages'))
       .end()
   }
 }
