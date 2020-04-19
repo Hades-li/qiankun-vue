@@ -1,6 +1,7 @@
-import { registerMicroApps, RegistrableApp, start, StartOpts } from 'qiankun'
+import { registerMicroApps, RegistrableApp, start, FrameworkConfiguration, LoadableApp } from 'qiankun'
 import { ComponentOptions } from 'vue'
 import { Vue as _Vue } from 'vue/types/vue'
+import Framework from './components/framework/index.vue'
 
 declare module 'vue/types/options' {
   interface ComponentOptions<V extends Vue> {
@@ -12,7 +13,8 @@ declare module 'vue/types/vue' {
   interface Vue {
     $qiankunVue: QiankunVue;
     $renderSuccess: (callback: (appHtml: string) => void) => void;
-    $afterMounted: (callback: (app: RegistrableApp) => void) => void;
+    $afterMounted: (callback: (app: LoadableApp) => void) => void;
+    $afterUnMounted: (callback: (app: LoadableApp) => void) => void;
   }
 }
 
@@ -25,8 +27,8 @@ declare interface Props extends Object {
 interface RegisterAppOpt {
   name: string;
   entry: string;
-  activeUrl: string;
-  other?: any;
+  activeRule: string;
+  props?: any;
 }
 
 function genActiveRule (url: string) {
@@ -41,11 +43,11 @@ class QiankunVue {
   private registerAppOpts: Array<RegisterAppOpt> = []
   private isStart = false
   private renderCallback?: (appHtml: string) => void
-  private afterMountedCallback?: (app: RegistrableApp) => void
-  private afterUnmountCallback?: (app: RegistrableApp) => void
+  private afterMountedCallback?: (app: LoadableApp) => void
+  private afterUnmountCallback?: (app: LoadableApp) => void
 
-  constructor (registerAppOpts: Array<RegisterAppOpt>) {
-    this.registerAppOpts = registerAppOpts
+  constructor (options: Array<RegisterAppOpt>) {
+    this.registerAppOpts = options
   }
 
   private render ({ appContent, loading }: { appContent: string; loading: boolean }) {
@@ -61,29 +63,27 @@ class QiankunVue {
     this.renderCallback = callback
   }
 
-  public afterMounted = (callback: (app: RegistrableApp) => void) => {
+  public afterMounted = (callback: (app: LoadableApp) => void) => {
     this.afterMountedCallback = callback
   }
 
-  public afterUnMounted = (callback: (app: RegistrableApp) => void) => {
+  public afterUnMounted = (callback: (app: LoadableApp) => void) => {
     this.afterUnmountCallback = callback
   }
 
-  public start = (opts?: StartOpts) => {
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
-    const self = this
+  public start = (opts?: FrameworkConfiguration) => {
+    // const self = this
     if (!this.isStart) {
-      // debugger
-      const apps = this.registerAppOpts.map((item: RegisterAppOpt, index) => {
+      const apps = this.registerAppOpts.map<RegistrableApp>((item: RegisterAppOpt, index) => {
         return {
           name: item.name, // app name registered
           entry: item.entry,
-          render: this.render.bind(this),
-          activeRule: genActiveRule(item.activeUrl),
+          container: '#subApp',
+          activeRule: item.activeRule,
           props: {
             mainInstance: this.mainApp,
             isFramework: true,
-            callback: (appInstance: Vue | any) => {
+            callback: (appInstance: Vue) => {
               this.appMap[item.name] = appInstance
               this.mountedApp = appInstance
             }
@@ -95,14 +95,14 @@ class QiankunVue {
         {
           afterMount: (app) => {
             // debugger
-            if (self.afterMountedCallback) {
-              self.afterMountedCallback(app)
+            if (this.afterMountedCallback) {
+              this.afterMountedCallback(app)
             }
             return Promise.resolve()
           },
           afterUnmount: (app) => {
-            if (self.afterUnmountCallback) {
-              self.afterUnmountCallback(app)
+            if (this.afterUnmountCallback) {
+              this.afterUnmountCallback(app)
             }
             return Promise.resolve()
           }
@@ -147,13 +147,16 @@ class QiankunVue {
       }
     })
     Object.defineProperty(Vue.prototype, '$afterUnMounted', {
-      get() {
+      get () {
         if (_qiankunVue) {
-          return _qiankunVue.afterUnmountCallback
+          return _qiankunVue.afterUnMounted
         }
         return undefined
       }
     })
+
+    // framework install
+    Vue.component('Qiankun', Framework)
   }
 }
 

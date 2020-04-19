@@ -12,12 +12,12 @@ const qiankunVue = new QiankunVue([
   {
     name: 'dashboard',
     entry: '//localhost:5001',
-    activeUrl: '/dashboard'
+    activeRule: '/dashboard'
   },
   {
-    name: 'src',
+    name: 'example',
     entry: '//localhost:5002',
-    activeUrl: '/src'
+    activeRule: '/example'
   }
 ])
 new Vue({

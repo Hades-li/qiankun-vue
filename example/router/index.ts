@@ -7,9 +7,14 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: '/dashboard',
+    name: 'dashboard',
+    component: Framework
+  },
+  {
+    path: '/example',
+    name: 'example',
+    component: Framework
   },
   {
     path: '/about',
@@ -21,9 +26,9 @@ const routes = [
       import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
-    path: '/dashboard',
-    name: 'dashboard',
-    component: Framework
+    path: '/',
+    name: 'Home',
+    component: Home
   }
 ]
 

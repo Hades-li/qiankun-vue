@@ -1,4 +1,4 @@
-import { RegistrableApp, StartOpts } from 'qiankun';
+import { RegistrableApp, FrameworkConfiguration, LoadableApp } from 'qiankun';
 import { Vue as _Vue } from 'vue/types/vue';
 declare module 'vue/types/options' {
     interface ComponentOptions<V extends Vue> {
@@ -9,14 +9,15 @@ declare module 'vue/types/vue' {
     interface Vue {
         $qiankunVue: QiankunVue;
         $renderSuccess: (callback: (appHtml: string) => void) => void;
-        $afterMounted: (callback: (app: RegistrableApp) => void) => void;
+        $afterMounted: (callback: (app: LoadableApp) => void) => void;
+        $afterUnMounted: (callback: (app: LoadableApp) => void) => void;
     }
 }
 interface RegisterAppOpt {
-    name: string;
-    entry: string;
-    activeUrl: string;
-    other?: any;
+  name: string;
+  entry: string;
+  activeRule: string;
+  props?: any;
 }
 declare class QiankunVue {
     appHtml: string;
@@ -33,7 +34,7 @@ declare class QiankunVue {
     private render;
     renderSuccess: (callback: (appHtml: string) => void) => void;
     afterMounted: (callback: (app: RegistrableApp<{}>) => void) => void;
-    start: (opts?: StartOpts | undefined) => void;
+    start: (opts?: FrameworkConfiguration) => void;
     static install: (Vue: import("vue").VueConstructor<_Vue>) => void;
 }
 export default QiankunVue;
