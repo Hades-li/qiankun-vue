@@ -1,6 +1,6 @@
 {
   "name": "qiankun-vue",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "this is plugin for vue. base is qiankun. qiankun is singleSpa lib",
   "private": false,
   "main": "dist/index.js",
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.4",
-    "qiankun": "^1.3.14",
+    "qiankun": "^2.0.2",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.2",
     "vue-property-decorator": "^8.3.0",
