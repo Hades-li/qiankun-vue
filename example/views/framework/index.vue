@@ -15,11 +15,11 @@ import { Component, Vue } from 'vue-property-decorator'
 export default class extends Vue {
 
   afterMounted (app: any) {
-    // debugger
+    console.log('子应用挂载结束')
   }
 
   afterUnmounted (app: any) {
-    // debugger
+    console.log('子应用卸载结束')
   }
 }
 </script>

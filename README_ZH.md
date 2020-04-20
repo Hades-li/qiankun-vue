@@ -1,5 +1,5 @@
 # qiankun-vue
-one vue plugin power by [qiankun](https://github.com/umijs/qiankun)。
+基于[qiankun](https://github.com/umijs/qiankun)微前端架构的vue插件，用于主应用。
 
 ## install
 ```shell
@@ -7,7 +7,7 @@ yarn add qiankun-vue or npm install qiankun-vue --save
 ```
 ## use
 
-main.ts
+main.js
 ```vuejs
 const qiankunVue = new QiankunVue([
   {
@@ -29,7 +29,7 @@ new Vue({
 }).$mount('#main')
 ```
 
-framework.vue (mounted child app)
+用于渲染子应用的页面
 
 ```vue
 <template>
