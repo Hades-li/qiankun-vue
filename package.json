@@ -1,6 +1,6 @@
 {
   "name": "qiankun-vue",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "this is plugin for vue. base is qiankun. qiankun is singleSpa lib",
   "private": false,
   "main": "dist/index.js",
