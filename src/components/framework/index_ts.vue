@@ -1,12 +1,10 @@
 <template>
   <div class="qiankun">
-    <h3>{{appName}}</h3>
     <div id="subApp"></div>
   </div>
 </template>
 <script lang="ts">
-import { Component, Emit } from 'vue-property-decorator'
-import Vue from 'vue'
+import { Component, Emit, Vue } from 'vue-property-decorator'
 import { LoadableApp } from 'qiankun'
 
   @Component({

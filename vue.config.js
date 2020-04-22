@@ -55,7 +55,12 @@ module.exports = {
 
       // 排除掉Vue
       config.externals({
-        vue: 'Vue'
+        vue: {
+          root: 'Vue',
+          commonjs: 'vue',
+          commonjs2: 'vue',
+          amd: 'vue'
+        }
       })
 
       config.optimization.splitChunks(false) // 是否代码分割

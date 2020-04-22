@@ -13,7 +13,6 @@ import { Component, Vue } from 'vue-property-decorator'
     name: 'Framework'
   })
 export default class extends Vue {
-
   afterMounted (app: any) {
     console.log('子应用挂载结束')
   }

@@ -1,7 +1,7 @@
 import { registerMicroApps, RegistrableApp, start, FrameworkConfiguration, LoadableApp } from 'qiankun'
 import { ComponentOptions } from 'vue'
 import { Vue as _Vue } from 'vue/types/vue'
-import Framework from './components/framework/index.vue'
+import QiankunView from './components/framework/index_ts.vue'
 
 declare module 'vue/types/options' {
   interface ComponentOptions<V extends Vue> {
@@ -156,7 +156,7 @@ class QiankunVue {
     })
 
     // framework install
-    Vue.component('Qiankun', Framework)
+    Vue.component('Qiankun', QiankunView)
   }
 }
 
