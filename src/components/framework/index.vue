@@ -3,17 +3,38 @@
     <div id="subApp"></div>
   </div>
 </template>
-<script>
-export default {
-  name: 'Qiankun',
-  mounted () {
-    this.$afterMounted(app => {
-      this.$emit('appMounted', app)
-    })
-    this.$afterUnMounted(app => {
-      this.$emit('appUnmounted', app)
-    })
-    this.$qiankunVue.start()
-  }
+<script lang="ts">
+import { Component, Emit, Vue } from 'vue-property-decorator'
+import { LoadableApp } from 'qiankun'
+
+  @Component({
+    name: 'Qiankun'
+  })
+export default class extends Vue {
+    private appName = ''
+
+    @Emit()
+    appMounted (app: LoadableApp) {
+      if (process.env.NODE_ENV === 'development') {
+        console.log(`${app.name} 挂载完毕:`, app)
+      }
+    }
+
+    @Emit()
+    appUnmounted (app: LoadableApp) {
+      if (process.env.NODE_ENV === 'development') {
+        console.log(`${app.name} 卸载完毕:`, app)
+      }
+    }
+
+    mounted () {
+      this.$afterMounted(app => {
+        this.appMounted(app)
+      })
+      this.$afterUnMounted(app => {
+        this.appUnmounted(app)
+      })
+      this.$qiankunVue.start()
+    }
 }
 </script>
