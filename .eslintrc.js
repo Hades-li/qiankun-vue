@@ -27,6 +27,7 @@ module.exports = {
     'no-unused-vars': 'off',
     'no-var-requires': 'off',
     '@typescript-eslint/no-this-alias': 'off',
+    '@typescript-eslint/no-var-requires': 'off'
     // 'space-before-function-paren': [2, 'never'],
     // 'vue/array-bracket-spacing': 'error',
     // 'vue/arrow-spacing': 'error',

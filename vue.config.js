@@ -35,7 +35,7 @@ module.exports = {
   chainWebpack: config => {
     // prd
     if (isProd) {
-      config.entry('app').clear().add('./src/index.ts')
+      config.entry('index').clear().add('./src/index.ts')
       config.output
         .filename('index.js')
         .libraryTarget('umd')
@@ -68,7 +68,7 @@ module.exports = {
     }
     // dev
     if (!isProd) {
-      config.entry('app').clear().add('./example/main.ts')
+      config.entry('index').clear().add('./example/main.ts')
     }
 
     config.resolve.alias
