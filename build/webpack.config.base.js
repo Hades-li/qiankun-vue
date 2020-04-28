@@ -18,7 +18,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      // '@': resolve('example'),
+      '@': resolve('example'),
       src: resolve('src'),
       vue$: 'vue/dist/vue.runtime.esm.js',
     },
