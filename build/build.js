@@ -1,10 +1,10 @@
 const webpack = require('webpack')
-const webpackBaseConf = require('./webpack.config.prd')
+const conf = process.env.NODE_ENV === 'production' ? require('./webpack.config.prd') : require('./webpack.config.dev')
 
-webpack(webpackBaseConf, (err, stats) => {
+webpack(conf, (err, stats) => {
   if (err || stats.hasErrors()) {
     // Handle errors here
-    console.log('err->', err)
+    // console.log('err->', err)
     process.stdout.write(stats.toString({
       colors: true,
       modules: false,
