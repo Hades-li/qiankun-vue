@@ -1,6 +1,6 @@
 {
   "name": "qiankun-vue",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "this is plugin for vue. base is qiankun. qiankun is singleSpa lib",
   "private": false,
   "main": "dist/index.js",
@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.dev.js",
-    "build": "cross-env NODE_ENV=production node build/build.js",
+    "build": "cross-env NODE_ENV=production webpack --config build/webpack.config.prd.js",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },

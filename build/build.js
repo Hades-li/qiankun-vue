@@ -7,10 +7,10 @@ webpack(conf, (err, stats) => {
     // console.log('err->', err)
     process.stdout.write(stats.toString({
       colors: true,
-      modules: false,
+      modules: true,
       children: false,
-      chunks: false,
-      chunkModules: false
+      chunks: true,
+      chunkModules: true
     }) + '\n\n')
   }
 })
