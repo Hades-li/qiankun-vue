@@ -3,6 +3,7 @@ const baseConf = require('./webpack.config.base')
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 function resolve (dir) {
   return path.join(__dirname, '../', dir)
@@ -20,8 +21,11 @@ module.exports = merge(baseConf({ NODE_ENV: env }), {
   devServer: {
     contentBase: resolve('dist'),
     port: 8080,
-    hot: true
+    hot: true,
+    progress: true,
+    quiet: true
   },
+  devtool: 'eval-source-map',
   module: {
     rules: [
       // 开发环境进行eslint规则校验
@@ -39,7 +43,14 @@ module.exports = merge(baseConf({ NODE_ENV: env }), {
       title: 'qiankun',
       template: resolve('public/index.html'),
       favicon: resolve('public/favicon.ico')
-    })
-
+    }),
+    new CopyWebpackPlugin([
+      {
+        from: resolve('public'),
+        to: resolve('dist'),
+        toType: 'dir',
+        ignore: ['index.html']
+      }
+    ])
   ]
 })

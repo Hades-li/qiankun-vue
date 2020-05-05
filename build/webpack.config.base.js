@@ -3,6 +3,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const webpack = require('webpack')
 
 function resolve (dir) {
@@ -96,9 +97,10 @@ module.exports = (env, argv) => {
           NODE_ENV: '"' + env.NODE_ENV + '"',
           BASE_URL: '"/"'
         }
-      }),
-      new FriendlyErrorsPlugin(),
-      new MiniCssExtractPlugin()
+      }), // 给浏览器运行中添加全局变量
+      new FriendlyErrorsPlugin(), // 友好的错误提示
+      new MiniCssExtractPlugin(),
+      new CaseSensitivePathsPlugin()
     ]
   }
 }
