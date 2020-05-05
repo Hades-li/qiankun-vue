@@ -3,6 +3,7 @@
     <qiankun
       @app-mounted="afterMounted"
       @app-unmounted="afterUnmounted"
+      @uncaught-error="error"
     ></qiankun>
   </div>
 </template>
@@ -19,6 +20,12 @@ export default class extends Vue {
 
   afterUnmounted (app: any) {
     console.log('子应用卸载结束')
+  }
+
+  error (event: ErrorEvent) {
+    if (event.error) {
+      console.log(`"${event.error.appOrParcelName}" app is no fetch`)
+    }
   }
 }
 </script>

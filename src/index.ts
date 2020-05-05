@@ -1,4 +1,4 @@
-import { registerMicroApps, RegistrableApp, start, FrameworkConfiguration, LoadableApp } from 'qiankun'
+import { registerMicroApps, RegistrableApp, start, FrameworkConfiguration, LoadableApp, addGlobalUncaughtErrorHandler } from 'qiankun'
 import { ComponentOptions } from 'vue'
 import { Vue as _Vue } from 'vue/types/vue'
 import QiankunView from './components/framework/index.vue'
@@ -11,6 +11,7 @@ declare module 'vue/types/options' {
 
 declare module 'vue/types/vue' {
   interface Vue {
+    uncaughtError?: (event: Event | string) => void;
     $qiankunVue: QiankunVue;
     $renderSuccess: (callback: (appHtml: string) => void) => void;
     $afterMounted: (callback: (app: LoadableApp) => void) => void;
@@ -45,6 +46,7 @@ class QiankunVue {
   private renderCallback?: (appHtml: string) => void
   private afterMountedCallback?: (app: LoadableApp) => void
   private afterUnmountCallback?: (app: LoadableApp) => void
+  public errorHandle?: (event: Event | string) => void
 
   constructor (options: Array<RegisterAppOpt>) {
     this.registerAppOpts = options
@@ -108,6 +110,12 @@ class QiankunVue {
           }
         })
       start(opts)
+
+      addGlobalUncaughtErrorHandler((event) => {
+        if (this.errorHandle) {
+          this.errorHandle(event)
+        }
+      })
       this.isStart = true
     }
   }

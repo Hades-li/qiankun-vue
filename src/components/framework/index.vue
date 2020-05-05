@@ -27,6 +27,13 @@ export default class extends Vue {
       }
     }
 
+    @Emit()
+    uncaughtError (event: Event | string) {
+      if (process.env.NODE_ENV === 'development') {
+        console.log(event)
+      }
+    }
+
     mounted () {
       this.$afterMounted(app => {
         this.appMounted(app)
@@ -35,6 +42,8 @@ export default class extends Vue {
         this.appUnmounted(app)
       })
       this.$qiankunVue.start()
+
+      this.$qiankunVue.errorHandle = this.uncaughtError
     }
 }
 </script>
