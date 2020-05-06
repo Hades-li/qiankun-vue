@@ -11,7 +11,6 @@ declare module 'vue/types/options' {
 
 declare module 'vue/types/vue' {
   interface Vue {
-    uncaughtError?: (event: Event | string) => void;
     $qiankunVue: QiankunVue;
     $renderSuccess: (callback: (appHtml: string) => void) => void;
     $afterMounted: (callback: (app: LoadableApp) => void) => void;

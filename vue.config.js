@@ -4,34 +4,8 @@ const path = require('path')
 const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = {
-  // pages: {
-  //   index: {
-  //     // page 的入口
-  //     entry: 'src/main.ts',
-  //     // 模板来源
-  //     template: 'public/index.html',
-  //     // 在 dist/index.html 的输出
-  //     filename: 'index.html'
-  //   }
-  // },
   productionSourceMap: false,
   parallel: false,
-  /*configureWebpack: config => {
-    if (isProd) {
-      config.entry = {
-        index: [
-          'src/index.ts'
-        ]
-      }
-    }
-    if (!isProd) {
-      config.entry = {
-        index: [
-          '@/main.ts'
-        ]
-      }
-    }
-  },*/
   chainWebpack: config => {
     // prd
     if (isProd) {

@@ -37,6 +37,7 @@ module.exports = (env, argv) => {
     },
     module: {
       rules: [
+        // 预处理.ts文件
         {
           test: /\.ts$/,
           use: [
@@ -51,6 +52,7 @@ module.exports = (env, argv) => {
           ],
           exclude: /node_modules/
         },
+        // 预处理.vue文件
         {
           test: /\.vue$/,
           loader: 'vue-loader'
