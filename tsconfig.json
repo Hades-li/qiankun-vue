@@ -9,10 +9,10 @@
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "baseUrl": ".",
     "declaration": true,
-    //    "declarationDir": "./types",
+//    "declarationDir": "types",
     "types": [
       "webpack-env",
       "mocha",

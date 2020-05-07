@@ -37,9 +37,14 @@ module.exports = (env, argv) => {
     },
     module: {
       rules: [
+        // 预处理.vue文件
+        {
+          test: /\.vue$/,
+          loader: 'vue-loader'
+        },
         // 预处理.ts文件
         {
-          test: /\.ts$/,
+          test: /\.tsx?$/,
           use: [
             'babel-loader',
             {
@@ -51,11 +56,6 @@ module.exports = (env, argv) => {
             }
           ],
           exclude: /node_modules/
-        },
-        // 预处理.vue文件
-        {
-          test: /\.vue$/,
-          loader: 'vue-loader'
         },
         // 预处理scss
         {
@@ -92,17 +92,17 @@ module.exports = (env, argv) => {
       ]
     },
     plugins: [
-      new VueLoaderPlugin(),
-      new ForkTsCheckerWebpackPlugin(),
+      new VueLoaderPlugin(), // 配合vue-loader
+      // new ForkTsCheckerWebpackPlugin(), // 将ts-loader类型检查跑在一个独立线程加速编译
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: '"' + env.NODE_ENV + '"',
           BASE_URL: '"/"'
         }
-      }), // 给浏览器运行中添加全局变量
+      }), // 给浏览器代码中添加全局变量
       new FriendlyErrorsPlugin(), // 友好的错误提示
-      new MiniCssExtractPlugin(),
-      new CaseSensitivePathsPlugin()
+      new MiniCssExtractPlugin(), // css提取
+      new CaseSensitivePathsPlugin() // 严格路径大小写
     ]
   }
 }

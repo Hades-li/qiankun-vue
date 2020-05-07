@@ -38,12 +38,12 @@ module.exports = merge(baseConf({ NODE_ENV: env }), {
     ]
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    new webpack.HotModuleReplacementPlugin(), // 支持热模块替换
     new HtmlWebpackPlugin({
       title: 'qiankun',
       template: resolve('public/index.html'),
       favicon: resolve('public/favicon.ico')
-    }),
+    }), // 配置index.html模板
     new CopyWebpackPlugin([
       {
         from: resolve('public'),
@@ -51,6 +51,6 @@ module.exports = merge(baseConf({ NODE_ENV: env }), {
         toType: 'dir',
         ignore: ['index.html']
       }
-    ])
+    ]) // 拷贝插件，用于拷贝一些不参与打包的静态资源至dist目录
   ]
 })
