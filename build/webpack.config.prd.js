@@ -29,10 +29,10 @@ module.exports = merge(baseConf({ NODE_ENV: env }), {
   },
   plugins: [
     // 清理dist文件夹
-    new CleanWebpackPlugin(),
-    new DeclarationBundlerWebpackPlugin({
-      moduleName: 'qianKunVue',
-      out: './testTypes/index.d.ts'
-    })
+    new CleanWebpackPlugin()
+    // new DeclarationBundlerWebpackPlugin({
+    //   moduleName: 'QiankunVue',
+    //   out: './src/index.d.ts'
+    // })
   ]
 })

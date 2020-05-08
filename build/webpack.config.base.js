@@ -51,6 +51,7 @@ module.exports = (env, argv) => {
               loader: 'ts-loader',
               options: {
                 appendTsSuffixTo: [/\.vue$/],
+                happyPackMode: true,
                 transpileOnly: true
               }
             }
@@ -93,7 +94,9 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new VueLoaderPlugin(), // 配合vue-loader
-      // new ForkTsCheckerWebpackPlugin(), // 将ts-loader类型检查跑在一个独立线程加速编译
+      new ForkTsCheckerWebpackPlugin({
+        checkSyntacticErrors: true
+      }), // 将ts-loader类型检查跑在一个独立线程加速编译
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: '"' + env.NODE_ENV + '"',

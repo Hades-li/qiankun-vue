@@ -12,20 +12,12 @@
     "sourceMap": false,
     "baseUrl": ".",
     "declaration": true,
-//    "declarationDir": "types",
+    "declarationDir": "dist",
     "types": [
       "webpack-env",
       "mocha",
       "chai"
     ],
-    "paths": {
-      "@/*": [
-        "example/*"
-      ],
-      "src/*": [
-        "src/*"
-      ]
-    },
     "lib": [
       "esnext",
       "dom",
@@ -33,16 +25,6 @@
       "scripthost"
     ]
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "example/**/*.ts",
-    "example/**/*.tsx",
-    "example/**/*.vue",
-    "tests/**/*.ts",
-    "tests/**/*.tsx"
-  ],
   "exclude": [
     "node_modules",
     "dist"

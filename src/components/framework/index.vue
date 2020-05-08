@@ -34,10 +34,6 @@ export default class extends Vue {
       }
     }
 
-    error () {
-
-    }
-
     mounted () {
       this.$afterMounted(app => {
         this.appMounted(app)

@@ -6,7 +6,6 @@ import QiankunView from './components/framework/index.vue'
 declare module 'vue/types/options' {
   interface ComponentOptions<V extends Vue> {
     qiankunVue?: QiankunVue;
-    error?: () => void;
   }
 }
 
