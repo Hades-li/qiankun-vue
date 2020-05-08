@@ -19,11 +19,15 @@ module.exports = merge(baseConf({ NODE_ENV: env }), {
     publicPath: '/'
   },
   devServer: {
-    contentBase: resolve('dist'),
+    contentBase: './dist',
     port: 8080,
     hot: true,
     progress: true,
-    quiet: true
+    quiet: true,
+    historyApiFallback: true,
+    overlay: {
+      errors: true
+    }
   },
   devtool: 'eval-source-map',
   module: {

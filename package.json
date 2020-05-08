@@ -19,7 +19,11 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.dev.js",
     "build": "cross-env NODE_ENV=production webpack --config build/webpack.config.prd.js",
     "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "install:example": "cd example/vue-example && yarn install",
+    "dev:example": "cd example/vue-example && yarn run dev",
+    "install:dashboard": "cd example/vue-dashboard && yarn install",
+    "dev:dashboard": "cd example/vue-dashboard && yarn run dev"
   },
   "dependencies": {
     "core-js": "^3.6.4",
@@ -53,7 +57,6 @@
     "copy-webpack-plugin": "^5.1.1",
     "cross-env": "^7.0.2",
     "css-loader": "^3.5.3",
-    "declaration-bundler-webpack-plugin": "^1.0.3",
     "eslint": "^6.7.2",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.20.1",

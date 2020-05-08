@@ -12,7 +12,7 @@
     "sourceMap": false,
     "baseUrl": ".",
     "declaration": true,
-    "declarationDir": "dist",
+//    "declarationDir": "types",
     "types": [
       "webpack-env",
       "mocha",

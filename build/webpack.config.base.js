@@ -51,8 +51,8 @@ module.exports = (env, argv) => {
               loader: 'ts-loader',
               options: {
                 appendTsSuffixTo: [/\.vue$/],
-                happyPackMode: true,
-                transpileOnly: true
+                happyPackMode: env.NODE_ENV !== 'production', // 生产模式下false,不开启
+                transpileOnly: env.NODE_ENV !== 'production' // 生产环境下关闭增量构建
               }
             }
           ],
