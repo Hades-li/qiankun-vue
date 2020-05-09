@@ -1,11 +1,12 @@
 <template>
   <div class="qiankun">
-    <div id="subApp"></div>
+    <div ref="subApp" id="subApp"></div>
   </div>
 </template>
 <script lang="ts">
-import { Component, Emit, Vue } from 'vue-property-decorator'
+import { Component, Emit, Vue, Watch } from 'vue-property-decorator'
 import { LoadableApp } from 'qiankun'
+import {AppModule, DeviceType} from "../../../example/vue-dashboard/src/store/modules/app";
 
   @Component({
     name: 'Qiankun'
@@ -34,6 +35,11 @@ export default class extends Vue {
       }
     }
 
+    @Watch('$route')
+    private onRouteChange () {
+      this.loadApp()
+    }
+
     mounted () {
       this.$afterMounted(app => {
         this.appMounted(app)
@@ -44,6 +50,12 @@ export default class extends Vue {
       this.$qiankunVue.start()
 
       this.$qiankunVue.errorHandle = this.uncaughtError
+    }
+
+    // 根据路由 手动加载子应用
+    loadApp () {
+      const actRule = this.$route.path.split('/')[1]
+      this.$loadMicroApp(this.$refs.subApp as HTMLElement, actRule)
     }
 }
 </script>
