@@ -6,7 +6,6 @@
 <script lang="ts">
 import { Component, Emit, Vue, Watch } from 'vue-property-decorator'
 import { LoadableApp } from 'qiankun'
-import {AppModule, DeviceType} from "../../../example/vue-dashboard/src/store/modules/app";
 
   @Component({
     name: 'Qiankun'
@@ -29,7 +28,7 @@ export default class extends Vue {
     }
 
     @Emit()
-    uncaughtError (event: Event | string) {
+    uncaughtError (event: any) {
       if (process.env.NODE_ENV === 'development') {
         console.log(event)
       }
@@ -40,22 +39,30 @@ export default class extends Vue {
       this.loadApp()
     }
 
+    beforeDestroy() {
+      this.$qiankunVue.unmountApp() // 卸载当前挂载的子应用
+    }
+
     mounted () {
-      this.$afterMounted(app => {
+      this.$qiankunVue.afterMounted(app => {
         this.appMounted(app)
       })
-      this.$afterUnMounted(app => {
+      this.$qiankunVue.afterUnmounted(app => {
         this.appUnmounted(app)
       })
       this.$qiankunVue.start()
 
-      this.$qiankunVue.errorHandle = this.uncaughtError
+      this.loadApp()
+
+      this.$qiankunVue.uncaughtError((err) => {
+        this.uncaughtError(err)
+      })
     }
 
     // 根据路由 手动加载子应用
     loadApp () {
-      const actRule = this.$route.path.split('/')[1]
-      this.$loadMicroApp(this.$refs.subApp as HTMLElement, actRule)
+      const actRule = '/' + this.$route.path.split('/')[1]
+      this.$qiankunVue.loadMicroApp(this.$refs.subApp as HTMLElement, actRule)
     }
 }
 </script>

@@ -18,17 +18,15 @@ import { Component, Vue } from 'vue-property-decorator'
   })
 export default class extends Vue {
   afterMounted (app: any) {
-    console.log('子应用挂载结束')
+    console.log('子应用挂载结束', app)
   }
 
   afterUnmounted (app: any) {
-    console.log('子应用卸载结束')
+    console.log('子应用卸载结束', app)
   }
 
-  error (event: ErrorEvent) {
-    if (event.error) {
-      console.log(`"${event.error.appOrParcelName}" app is no fetch`)
-    }
+  error (err: any) {
+    console.log('app报错', err)
   }
 }
 </script>
