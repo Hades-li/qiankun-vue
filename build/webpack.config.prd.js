@@ -2,7 +2,6 @@ const merge = require('webpack-merge')
 const baseConf = require('./webpack.config.base')
 const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const DeclarationBundlerWebpackPlugin = require('declaration-bundler-webpack-plugin')
 
 function resolve (dir) {
   return path.join(__dirname, '../', dir)

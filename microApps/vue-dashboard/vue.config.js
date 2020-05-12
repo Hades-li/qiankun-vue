@@ -1,14 +1,11 @@
 const path = require('path')
-const { name } = require('./package')
+const { name } = require('./package.json')
 const cors = require('cors')
-const port = 5002
+const port = 5001
 
 module.exports = {
   devServer: {
     port,
-    /* headers: {
-      'Access-Control-Allow-Origin': '*',
-    }, */
     before(app, server) {
       app.use(cors())
     }
@@ -27,7 +24,7 @@ module.exports = {
       ]
     }
   },
-  /*   configureWebpack: {
+/*   configureWebpack: {
     output: {
       // 把子应用打包成 umd 库格式
       library: `${name}-[name]`,
@@ -39,10 +36,10 @@ module.exports = {
     // Provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.
     config.set('name', name)
-    config.plugin('html').tap(args => {
-      args[0].minify = false
-      return args
-    })
+    config.plugin("html").tap(args => {
+      args[0].minify = false;
+      return args;
+    });
     // 把子应用打包成 umd 库格式
     config.output
       .jsonpFunction(`webpackJsonp_${name}`)

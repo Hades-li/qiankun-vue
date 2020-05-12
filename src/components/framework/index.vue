@@ -50,13 +50,12 @@ export default class extends Vue {
       this.$qiankunVue.afterUnmounted(app => {
         this.appUnmounted(app)
       })
-      this.$qiankunVue.start()
-
-      this.loadApp()
-
       this.$qiankunVue.uncaughtError((err) => {
         this.uncaughtError(err)
       })
+      this.$qiankunVue.start()
+
+      this.loadApp()
     }
 
     // 根据路由 手动加载子应用

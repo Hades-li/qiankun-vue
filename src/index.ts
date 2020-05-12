@@ -210,30 +210,6 @@ class QiankunVue {
         return _qiankunVue
       }
     })
-    Object.defineProperty(Vue.prototype, '$renderSuccess', {
-      get() {
-        if (_qiankunVue) {
-          return _qiankunVue.renderSuccess
-        }
-        return undefined
-      }
-    })
-    Object.defineProperty(Vue.prototype, '$afterMounted', {
-      get() {
-        if (_qiankunVue) {
-          return _qiankunVue.afterMounted
-        }
-        return undefined
-      }
-    })
-    Object.defineProperty(Vue.prototype, '$afterUnMounted', {
-      get() {
-        if (_qiankunVue) {
-          return _qiankunVue.afterUnmounted
-        }
-        return undefined
-      }
-    })
     // framework install
     Vue.component('Qiankun', QiankunView)
   }

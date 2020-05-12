@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Template from jarvis](https://img.shields.io/badge/Hi-Jarvis-ff69b4.svg)](https://github.com/Armour/Jarvis)
 
-English | [简体中文](./README-zh.md)
+English | [简体中文](README-zh.md)
 
 ## Overview
 
@@ -13,7 +13,7 @@ A minimal vue typescript admin template with element-ui & axios & svgicon & perm
 
 ## Screenshots
 
-![demo](./demo/demo.gif)
+![demo](demo/demo.gif)
 
 ## Related Project
 

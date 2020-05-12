@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Template from jarvis](https://img.shields.io/badge/Hi-Jarvis-ff69b4.svg)](https://github.com/Armour/Jarvis)
 
-[English](./README.md) | 简体中文
+[English](README.md) | 简体中文
 
 ## 总览
 
@@ -13,7 +13,7 @@
 
 ## 截图/动图
 
-![demo](./demo/demo.gif)
+![demo](demo/demo.gif)
 
 ## 相关项目
 
