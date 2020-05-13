@@ -1,16 +1,15 @@
 import {
-  registerMicroApps,
-  RegistrableApp,
+  // registerMicroApps,
+  // RegistrableApp,
   start,
   FrameworkConfiguration,
   LoadableApp,
-  addGlobalUncaughtErrorHandler,
+  // addGlobalUncaughtErrorHandler,
   loadMicroApp, MicroApp
 } from 'qiankun'
 import {ComponentOptions} from 'vue'
 import {Vue as _Vue} from 'vue/types/vue'
 import QiankunView from './components/framework/index.vue'
-import {debug} from 'webpack'
 
 declare module 'vue/types/options' {
   interface ComponentOptions<V extends Vue> {

@@ -11,10 +11,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 
   @Component({
-    name: 'Framework',
-    beforeRouteLeave (to, from, next) {
-      next()
-    }
+    name: 'Framework'
   })
 export default class extends Vue {
   afterMounted (app: any) {

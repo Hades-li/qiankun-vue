@@ -6,12 +6,13 @@
 <script lang="ts">
 import { Component, Emit, Vue, Watch } from 'vue-property-decorator'
 import { LoadableApp } from 'qiankun'
+import {Route} from "vue-router";
 
   @Component({
     name: 'Qiankun'
   })
 export default class extends Vue {
-    private appName = ''
+    private curPath = '' // 当前路径
 
     @Emit()
     appMounted (app: LoadableApp) {
@@ -35,8 +36,8 @@ export default class extends Vue {
     }
 
     @Watch('$route')
-    private onRouteChange () {
-      this.loadApp()
+    private onRouteChange (route: Route) {
+      this.loadApp(route.path)
     }
 
     beforeDestroy() {
@@ -59,8 +60,8 @@ export default class extends Vue {
     }
 
     // 根据路由 手动加载子应用
-    loadApp () {
-      const actRule = '/' + this.$route.path.split('/')[1]
+    loadApp (path: string) {
+      const actRule = '/' + path.split('/')[1]
       this.$qiankunVue.loadMicroApp(this.$refs.subApp as HTMLElement, actRule)
     }
 }

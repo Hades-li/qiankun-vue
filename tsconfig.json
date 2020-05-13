@@ -22,9 +22,14 @@
       "esnext",
       "dom",
       "dom.iterable",
-      "scripthost"
+      "scriptHost"
     ]
   },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue"
+  ],
   "exclude": [
     "node_modules",
     "dist",
