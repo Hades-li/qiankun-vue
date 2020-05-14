@@ -22,7 +22,7 @@ Vue.use(SvgIcon, {
 
 Vue.config.productionTip = false
 
-let app: Vue | undefined = undefined
+let app: Vue | undefined
 
 export async function bootstrap() {
   console.log('example应用初始化')

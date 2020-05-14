@@ -12,7 +12,6 @@ import {Route} from "vue-router";
     name: 'Qiankun'
   })
 export default class extends Vue {
-    private curPath = '' // 当前路径
 
     @Emit()
     appMounted (app: LoadableApp) {
@@ -29,7 +28,7 @@ export default class extends Vue {
     }
 
     @Emit()
-    uncaughtError (event: any) {
+    uncaughtError (event: {app: LoadableApp; msg: string}) {
       if (process.env.NODE_ENV === 'development') {
         console.log(event)
       }
@@ -54,9 +53,8 @@ export default class extends Vue {
       this.$qiankunVue.uncaughtError((err) => {
         this.uncaughtError(err)
       })
-      this.$qiankunVue.start()
-
-      this.loadApp()
+      // debugger
+      this.loadApp(this.$route?.path)
     }
 
     // 根据路由 手动加载子应用

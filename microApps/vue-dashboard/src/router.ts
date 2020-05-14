@@ -16,7 +16,7 @@ Vue.use(Router)
 */
 
 export default new Router({
-  mode: 'history', // Enable this if you need.
+  mode: 'hash', // Enable this if you need.
   scrollBehavior: (to, from, savedPosition) => {
     if (savedPosition) {
       return savedPosition
@@ -175,5 +175,3 @@ export default new Router({
     // }
   ]
 })
-
-

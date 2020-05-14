@@ -123,13 +123,13 @@ class QiankunVue {
           return Promise.resolve()
         }
       }) */
-      start(opts)
 
 /*      addGlobalUncaughtErrorHandler((event) => {
         if (this.errorHandle) {
           this.errorHandle(event)
         }
       })*/
+      start(opts)
       this.isStart = true
     }
   }
@@ -138,36 +138,35 @@ class QiankunVue {
   public loadMicroApp = (container: string | HTMLElement, app: string | LoadableApp, configuration?: FrameworkConfiguration) => {
     if (typeof app === 'string') {
       if (this.microAppRule !== app) { // 判断如果传入的子应用不是当前的，就进行加载
-        this.unmountApp().then(res => {
-          console.log('qiankunVue-log:', res)
-        })
-        const regApp = this.registerAppOpts.find(item => item.activeRule === app)
-        if (regApp) {
-          const loadableApp: LoadableApp = {
-            name: regApp.name,
-            entry: regApp.entry,
-            container,
-            props: {
-              mainInstance: this.mainApp,
-              isFramework: true,
-              callback: (appInstance: Vue) => {
-                this.appMap[regApp.name] = appInstance
-                this.mountedApp = appInstance
+        this.unmountApp().then(() => {
+          const regApp = this.registerAppOpts.find(item => item.activeRule === app)
+          if (regApp) {
+            const loadableApp: LoadableApp = {
+              name: regApp.name,
+              entry: regApp.entry,
+              container,
+              props: {
+                mainInstance: this.mainApp,
+                isFramework: true,
+                callback: (appInstance: Vue) => {
+                  this.appMap[regApp.name] = appInstance
+                  this.mountedApp = appInstance
+                }
               }
             }
+            this.microApp = loadMicroApp(loadableApp)
+            this.microApp.mountPromise.then(() => {
+              if (this.afterMountedCallback) {
+                this.afterMountedCallback(loadableApp)
+              }
+            }).catch(err => {
+              if (this.errorHandle) {
+                this.errorHandle(err)
+              }
+            })
+            this.microAppRule = app
           }
-          this.microApp = loadMicroApp(loadableApp)
-          this.microApp.mountPromise.then(() => {
-            if (this.afterMountedCallback) {
-              this.afterMountedCallback(loadableApp)
-            }
-          }).catch(err => {
-            if (this.errorHandle) {
-              this.errorHandle(err)
-            }
-          })
-          this.microAppRule = app
-        }
+        })
       }
     } else {
       this.microApp = loadMicroApp(app as LoadableApp, configuration)
@@ -187,7 +186,7 @@ class QiankunVue {
         return Promise.reject(err)
       })
     }
-    return Promise.reject()
+    return Promise.resolve('no microApp')
   }
 
   // 插件安装
@@ -199,6 +198,7 @@ class QiankunVue {
           _qiankunVue = this.$options.qiankunVue
           if (_qiankunVue) {
             _qiankunVue.mainApp = this
+            _qiankunVue.start()
           }
         }
       }

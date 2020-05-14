@@ -1,33 +1,34 @@
 <template>
-  <div id="main">
-    <div id="nav">
-      <router-link to="/dashboard">dashboard</router-link> |
-      <router-link to="/example">Example</router-link> |
-      <router-link to="/about">About</router-link>
+  <div class="app" id="main">
+    <h3>Qiankun-vue</h3>
+    <div class="app-container">
+      <Menu></Menu>
+      <keep-alive>
+        <router-view class="view-wrap"/>
+      </keep-alive>
     </div>
-    <router-view />
   </div>
 </template>
 
-<style lang="scss">
-#app {
+<style lang="scss" scoped>
+#main {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
+  padding: 10px;
 }
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.app-container {
+  display: flex;
+}
+.view-wrap {
+  border-left: 1px solid #13ce66;
+  padding-left: 20px;
 }
 </style>
+<script>
+import Menu from './components/Menu'
+export default {
+  components: { Menu }
+}
+</script>
