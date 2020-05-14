@@ -1,6 +1,5 @@
 # qiankun-vue
-qiankun-vue是一个基于[qiankun](https://github.com/umijs/qiankun) 微前端框架的vue插件。可以让你更容易的在vue中使用。它可以实现在主应用自己的页面和子应用的页面自由跳转。 可以方便的集成到类似vue-admin-element这样的中后台框架中去。
-基于微前端架构的vue插件，用于主应用。
+one vue plugin power by [qiankun](https://github.com/umijs/qiankun)。
 
 ## install
 ```shell
@@ -29,8 +28,6 @@ new Vue({
   render: h => h(App)
 }).$mount('#main')
 ```
-
-用于渲染子应用的页面
 
 framework/index.vue
 
@@ -67,7 +64,7 @@ export default class extends Vue {
 <style lang="scss" scoped></style>
 ```
 
-主应用路由配置
+mainApp route config
 
 route/index.ts
 ```typescript
@@ -102,9 +99,4 @@ const router = new VueRouter({
 
 export default router
 ```
-
-
-
-
-
 

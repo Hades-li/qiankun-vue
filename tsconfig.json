@@ -37,6 +37,8 @@
     "node_modules",
     "dist",
     "microApps",
-    "types"
+    "types",
+    "README.md",
+    "README_EN.md"
   ]
 }
