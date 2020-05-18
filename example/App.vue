@@ -3,9 +3,9 @@
     <h3>Qiankun-vue</h3>
     <div class="app-container">
       <Menu></Menu>
-      <keep-alive>
+<!--      <keep-alive>-->
         <router-view class="view-wrap"/>
-      </keep-alive>
+<!--      </keep-alive>-->
     </div>
   </div>
 </template>

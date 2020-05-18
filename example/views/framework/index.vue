@@ -15,15 +15,15 @@ import { Component, Vue } from 'vue-property-decorator'
   })
 export default class extends Vue {
   afterMounted (app) {
-    console.log('子应用挂载结束', app)
+    // console.log('子应用挂载结束', app)
   }
 
   afterUnmounted (app) {
-    console.log('子应用卸载结束', app)
+    // console.log('子应用卸载结束', app)
   }
 
   error (err) {
-    console.log('app报错', err)
+    // console.log('app报错', err)
   }
 }
 </script>

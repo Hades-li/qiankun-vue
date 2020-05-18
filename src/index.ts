@@ -4,8 +4,11 @@ import {
   start,
   FrameworkConfiguration,
   LoadableApp,
+  prefetchApps,
   // addGlobalUncaughtErrorHandler,
-  loadMicroApp, MicroApp
+  loadMicroApp,
+  MicroApp,
+  AppMetadata
 } from 'qiankun'
 import {ComponentOptions} from 'vue'
 import {Vue as _Vue} from 'vue/types/vue'
@@ -56,7 +59,7 @@ class QiankunVue {
   private renderCallback?: (appHtml: string) => void
   private afterMountedCallback?: (app: LoadableApp) => void
   private afterUnmountCallback?: (app: LoadableApp) => void
-  private errorCallback?: (err: {app: LoadableApp; msg: string}) => void
+  private errorCallback?: (err: { app: LoadableApp; msg: string }) => void
   public errorHandle?: (event: Event | string) => void
 
   constructor(options: Array<RegisterAppOpt>) {
@@ -84,18 +87,18 @@ class QiankunVue {
     this.afterUnmountCallback = callback
   }
 
-  public uncaughtError = (callback: (err: {app: LoadableApp; msg: string}) => void) => {
+  public uncaughtError = (callback: (err: { app: LoadableApp; msg: string }) => void) => {
     this.errorCallback = callback
   }
 
   public start = (opts?: FrameworkConfiguration) => {
     // const self = this
     if (!this.isStart) {
-      /* const apps = this.registerAppOpts.map<RegistrableApp>((item: RegisterAppOpt, index) => {
+      const apps = this.registerAppOpts.map<AppMetadata>((item: RegisterAppOpt) => {
         return {
           name: item.name, // app name registered
           entry: item.entry,
-          container: '#subApp',
+          /*container: '#subApp',
           activeRule: item.activeRule,
           props: {
             mainInstance: this.mainApp,
@@ -104,11 +107,11 @@ class QiankunVue {
               this.appMap[item.name] = appInstance
               this.mountedApp = appInstance
             }
-          }
+          }*/
         }
       })
       // 注册
-      registerMicroApps(apps, {
+      /* registerMicroApps(apps, {
         afterMount: (app) => {
           // debugger
           if (this.afterMountedCallback) {
@@ -124,11 +127,13 @@ class QiankunVue {
         }
       }) */
 
-/*      addGlobalUncaughtErrorHandler((event) => {
-        if (this.errorHandle) {
-          this.errorHandle(event)
-        }
-      })*/
+      /*      addGlobalUncaughtErrorHandler((event) => {
+              if (this.errorHandle) {
+                this.errorHandle(event)
+              }
+            })*/
+
+      prefetchApps(apps, 'all')
       start(opts)
       this.isStart = true
     }
@@ -176,7 +181,9 @@ class QiankunVue {
   // 卸载当前子应用
   public unmountApp = () => {
     this.microAppRule = undefined
-    if (this.microApp && this.microApp.getStatus() === 'MOUNTED') {
+    const status = this.microApp?.getStatus()
+    console.log(`[qiankun-vue] status is ${status}`)
+    if (this.microApp && status === 'MOUNTED') {
       return this.microApp.unmount().then(() => {
         return Promise.resolve(`${this.microAppRule} is unmounted`)
       }).catch(err => {

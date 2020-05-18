@@ -9,28 +9,28 @@ import { LoadableApp } from 'qiankun'
 import {Route} from "vue-router";
 
   @Component({
-    name: 'Qiankun'
+    name: 'Qiankun',
   })
 export default class extends Vue {
 
     @Emit()
     appMounted (app: LoadableApp) {
       if (process.env.NODE_ENV === 'development') {
-        console.log(`${app.name} 挂载完毕:`, app)
+        console.log(`[qiankun-vue] ${app.name} 挂载完毕:`, app)
       }
     }
 
     @Emit()
     appUnmounted (app: LoadableApp) {
       if (process.env.NODE_ENV === 'development') {
-        console.log(`${app.name} 卸载完毕:`, app)
+        console.log(`[qiankun-vue] ${app.name} 卸载完毕:`, app)
       }
     }
 
     @Emit()
     uncaughtError (event: {app: LoadableApp; msg: string}) {
       if (process.env.NODE_ENV === 'development') {
-        console.log(event)
+        console.log('[qiankun-vue] ', event)
       }
     }
 
@@ -43,6 +43,9 @@ export default class extends Vue {
       this.$qiankunVue.unmountApp() // 卸载当前挂载的子应用
     }
 
+    deactivated() {
+      this.$qiankunVue.unmountApp() // 卸载当前挂载的子应用
+    }
     mounted () {
       this.$qiankunVue.afterMounted(app => {
         this.appMounted(app)
