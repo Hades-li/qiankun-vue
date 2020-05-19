@@ -23,7 +23,7 @@ Vue.use(SvgIcon, {
 Vue.config.productionTip = false
 
 const name = 'dashboard'
-let app: Vue | undefined = undefined
+let app: Vue | undefined
 
 export async function bootstrap() {
   console.log(`${name}应用初始化`)
@@ -36,11 +36,13 @@ export async function mount(props: any) {
   Vue.prototype.$isFramework = props.isFramework
   Vue.prototype.$mainApp = props.mainInstance
   if (!app) {
+    console.log(router)
     app = new Vue({
       router,
       store,
       render: (h) => h(App)
     })
+    console.log(router)
   }
   app.$mount('#app')
   props.callback(app)

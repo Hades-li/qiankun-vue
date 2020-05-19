@@ -15,8 +15,8 @@ Vue.use(Router)
   }
 */
 
-export default new Router({
-  // mode: 'history',  // Enable this if you need.
+const router = new Router({
+  mode: 'history', // Enable this if you need.
   scrollBehavior: (to, from, savedPosition) => {
     if (savedPosition) {
       return savedPosition
@@ -166,3 +166,7 @@ export default new Router({
     // }
   ]
 })
+router.onError((err) => {
+  console.log(err)
+})
+export default router

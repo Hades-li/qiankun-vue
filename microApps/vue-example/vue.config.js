@@ -13,7 +13,7 @@ module.exports = {
       app.use(cors())
     }
   },
-  publicPath: process.env.NODE_ENV === 'production' ? '/vue-typescript-admin-template/' : `//localhost:${port}`, // TODO: Remember to change this to fit your need
+  publicPath: process.env.NODE_ENV === 'production' ? '/' : `//localhost:${port}`, // TODO: Remember to change this to fit your need
   lintOnSave: process.env.NODE_ENV === 'development',
   pwa: {
     name: name

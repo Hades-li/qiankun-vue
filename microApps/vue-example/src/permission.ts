@@ -16,7 +16,7 @@ NProgress.configure({ showSpinner: false })
 
 const whiteList = ['/login']
 
-router.beforeEach(async(to: Route, _: Route, next: any) => {
+/* router.beforeEach(async(to: Route, _: Route, next: any) => {
   // Start progress bar
   NProgress.start()
 
@@ -56,7 +56,7 @@ router.beforeEach(async(to: Route, _: Route, next: any) => {
       NProgress.done()
     }
   }
-})
+}) */
 
 router.afterEach((to: Route) => {
   // Finish progress bar

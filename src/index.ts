@@ -13,6 +13,7 @@ import {
 import {ComponentOptions} from 'vue'
 import {Vue as _Vue} from 'vue/types/vue'
 import QiankunView from './components/framework/index.vue'
+import {debug} from "webpack";
 
 declare module 'vue/types/options' {
   interface ComponentOptions<V extends Vue> {
@@ -53,6 +54,7 @@ class QiankunVue {
   public appMap: { [key: string]: any } = {} // 挂载的vue app 实例map
   public mountedApp: any = {} // 挂载的vue app
   private microApp?: MicroApp // 当前手动加载的子应用
+  private loadableApp?: LoadableApp // 当前读取的子应用属性
   private microAppRule?: string | LoadableApp// 当前手动加载子应用的路径
   private registerAppOpts: Array<RegisterAppOpt> = []
   private isStart = false
@@ -126,13 +128,6 @@ class QiankunVue {
           return Promise.resolve()
         }
       }) */
-
-      /*      addGlobalUncaughtErrorHandler((event) => {
-              if (this.errorHandle) {
-                this.errorHandle(event)
-              }
-            })*/
-
       prefetchApps(apps, 'all')
       start(opts)
       this.isStart = true
@@ -141,51 +136,47 @@ class QiankunVue {
 
   // 手动加载子应用
   public loadMicroApp = (container: string | HTMLElement, app: string | LoadableApp, configuration?: FrameworkConfiguration) => {
-    if (typeof app === 'string') {
-      if (this.microAppRule !== app) { // 判断如果传入的子应用不是当前的，就进行加载
-        this.unmountApp().then(() => {
-          const regApp = this.registerAppOpts.find(item => item.activeRule === app)
-          if (regApp) {
-            const loadableApp: LoadableApp = {
-              name: regApp.name,
-              entry: regApp.entry,
-              container,
-              props: {
-                mainInstance: this.mainApp,
-                isFramework: true,
-                callback: (appInstance: Vue) => {
-                  this.appMap[regApp.name] = appInstance
-                  this.mountedApp = appInstance
-                }
-              }
-            }
-            this.microApp = loadMicroApp(loadableApp)
-            this.microApp.mountPromise.then(() => {
-              if (this.afterMountedCallback) {
-                this.afterMountedCallback(loadableApp)
-              }
-            }).catch(err => {
-              if (this.errorHandle) {
-                this.errorHandle(err)
-              }
-            })
-            this.microAppRule = app
+    const regApp = this.registerAppOpts.find(item => item.activeRule === app) // 判断当前传入的app是否是已注册的
+    if (regApp) {
+      const loadableApp: LoadableApp = {
+        name: regApp.name,
+        entry: regApp.entry,
+        container,
+        props: {
+          mainInstance: this.mainApp,
+          isFramework: true,
+          callback: (appInstance: Vue) => {
+            this.appMap[regApp.name] = appInstance
+            this.mountedApp = appInstance
           }
+        }
+      }
+      if (this.loadableApp?.name !== loadableApp.name) { // 判断当前传入的待加载app是否和上回的一样
+        this.unmountApp().then(() => {
+          this.microApp = loadMicroApp(loadableApp)
+          this.loadableApp = loadableApp
+          this.microApp.mountPromise.then(() => {
+            if (this.afterMountedCallback) {
+              this.afterMountedCallback(loadableApp)
+            }
+          }).catch(err => {
+            if (this.errorHandle) {
+              this.errorHandle(err)
+            }
+          })
         })
       }
-    } else {
-      this.microApp = loadMicroApp(app as LoadableApp, configuration)
     }
   }
 
   // 卸载当前子应用
   public unmountApp = () => {
-    this.microAppRule = undefined
     const status = this.microApp?.getStatus()
-    console.log(`[qiankun-vue] status is ${status}`)
+    // console.log(`[qiankun-vue] ${this.loadableApp?.name} status is ${status}`)
+    this.loadableApp = undefined
     if (this.microApp && status === 'MOUNTED') {
       return this.microApp.unmount().then(() => {
-        return Promise.resolve(`${this.microAppRule} is unmounted`)
+        return Promise.resolve(`${this.loadableApp?.name} is unmounted`)
       }).catch(err => {
         if (this.errorHandle) {
           this.errorHandle(err)

@@ -11,12 +11,12 @@ Vue.use(QiankunVue)
 const qiankunVue = new QiankunVue([
   {
     name: 'dashboard',
-    entry: '//localhost:5101',
+    entry: '//localhost:5001',
     activeRule: '/dashboard'
   },
   {
     name: 'example',
-    entry: '//localhost:5102',
+    entry: '//localhost:5002',
     activeRule: '/example'
   }
 ])
