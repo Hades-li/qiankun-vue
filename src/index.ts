@@ -127,7 +127,7 @@ class QiankunVue {
         }
       }) */
       prefetchApps(apps, 'all')
-      start(opts)
+      // start(opts)
       this.isStart = true
     }
   }
@@ -151,7 +151,12 @@ class QiankunVue {
       }
       if (this.loadableApp?.name !== loadableApp.name) { // 判断当前传入的待加载app是否和上回的一样
         this.unmountApp().then(() => {
-          this.microApp = loadMicroApp(loadableApp)
+          this.microApp = loadMicroApp(loadableApp, {
+            sandbox: {
+              strictStyleIsolation: true
+            },
+            singular: true
+          })
           this.loadableApp = loadableApp
           this.microApp.mountPromise.then(() => {
             if (this.afterMountedCallback) {
