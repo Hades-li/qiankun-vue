@@ -13,7 +13,6 @@ import {
 import {ComponentOptions} from 'vue'
 import {Vue as _Vue} from 'vue/types/vue'
 import QiankunView from './components/framework/index.vue'
-import {debug} from "webpack";
 
 declare module 'vue/types/options' {
   interface ComponentOptions<V extends Vue> {
@@ -55,7 +54,6 @@ class QiankunVue {
   public mountedApp: any = {} // 挂载的vue app
   private microApp?: MicroApp // 当前手动加载的子应用
   private loadableApp?: LoadableApp // 当前读取的子应用属性
-  private microAppRule?: string | LoadableApp// 当前手动加载子应用的路径
   private registerAppOpts: Array<RegisterAppOpt> = []
   private isStart = false
   private renderCallback?: (appHtml: string) => void

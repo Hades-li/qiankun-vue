@@ -14,7 +14,8 @@
     "declaration": true,
 //    "declarationDir": "types",
     "types": [
-      "webpack-env",
+//      "webpack-env",
+      "node",
       "mocha",
       "chai"
     ],

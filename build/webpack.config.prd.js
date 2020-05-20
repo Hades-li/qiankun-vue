@@ -2,6 +2,7 @@ const merge = require('webpack-merge')
 const baseConf = require('./webpack.config.base')
 const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 
 function resolve (dir) {
   return path.join(__dirname, '../', dir)
@@ -26,12 +27,11 @@ module.exports = merge(baseConf({ NODE_ENV: env }), {
       amd: 'vue'
     }
   },
+  optimization: {
+    minimizer: [new TerserPlugin()]
+  },
   plugins: [
     // 清理dist文件夹
     new CleanWebpackPlugin()
-    // new DeclarationBundlerWebpackPlugin({
-    //   moduleName: 'QiankunVue',
-    //   out: './src/index.d.ts'
-    // })
   ]
 })
