@@ -21,11 +21,7 @@ const qiankunVue = new QiankunVue([
     entry: '//localhost:5002',
     activeRule: '/example'
   }
-], {
-     sandbox: {
-       strictStyleIsolation: true // 默认为false
-     }
-})
+])
 
 new Vue({
   router,
@@ -34,10 +30,7 @@ new Vue({
   render: h => h(App)
 }).$mount('#main')
 ```
-注意：`strictStyleIsolation: true`，是采用[shadow dom](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components/Using_shadow_DOM), 对
-子应用进行样式隔离。但大多数vue项目，在生产环境下，css都是被提取出来，并且根据不同的组件进行动态加载。动态加载时，会将link标签直接加到页面根节点的head标签内。
-这样，由于子应用已经被shadow dom进行样式隔离了。因此，加载进入的css就不能作用到子应用上。就和qiankun中说的一样，不能无脑使用。使用`strictStyleIsolation: true`需要自行解决子应用的样式以及其他资源加载问题。
-比如一次性将整个子应用的资源全都写在生成的index.html上。
+
 
 用于渲染子应用的页面
 
@@ -112,6 +105,23 @@ const router = new VueRouter({
 export default router
 ```
 
+## 初始化参数
+```typescript
+const qiankunVue = new QiankunVue([
+  {
+    name: 'dashboard', // 子应用名称
+    entry: '//localhost:5001', // 子应用入口请求地址
+    activeRule: '/dashboard' // 激活子应用的路由
+  }
+],config)
+```
+
+`config`
+
+注意：`strictStyleIsolation: true`，是采用[shadow dom](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components/Using_shadow_DOM), 对
+子应用进行样式隔离。但大多数vue项目，在生产环境下，css都是被提取出来，并且根据不同的组件进行动态加载。动态加载时，会将link标签直接加到页面根节点的head标签内。
+这样，由于子应用已经被shadow dom进行样式隔离了。因此，加载进入的css就不能作用到子应用上。就和qiankun中说的一样，不能无脑使用。使用`strictStyleIsolation: true`需要自行解决子应用的样式以及其他资源加载问题。
+比如一次性将整个子应用的资源全都写在生成的index.html上。
 
 
 
