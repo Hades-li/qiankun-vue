@@ -1,4 +1,4 @@
-import { FrameworkConfiguration, LoadableApp } from 'qiankun';
+import { FrameworkConfiguration, LoadableApp, AppMetadata } from 'qiankun';
 import { Vue as _Vue } from 'vue/types/vue';
 declare module 'vue/types/options' {
     interface ComponentOptions<V extends Vue> {
@@ -28,17 +28,16 @@ declare class QiankunVue {
     };
     mountedApp: any;
     private microApp?;
-    private microAppRule?;
+    private loadableApp?;
     private registerAppOpts;
+    private config?;
     private isStart;
     private renderCallback?;
     private afterMountedCallback?;
     private afterUnmountCallback?;
     private errorCallback?;
     errorHandle?: (event: Event | string) => void;
-    constructor(options: Array<RegisterAppOpt>);
-    private render;
-    renderSuccess: (callback: (appHtml: string) => void) => void;
+    constructor(options: Array<RegisterAppOpt>, config?: FrameworkConfiguration);
     afterMounted: (callback: (app: LoadableApp<{}>) => void) => void;
     afterUnmounted: (callback: (app: LoadableApp<{}>) => void) => void;
     uncaughtError: (callback: (err: {
@@ -46,11 +45,11 @@ declare class QiankunVue {
         msg: string;
     }) => void) => void;
     start: (opts?: FrameworkConfiguration | undefined) => void;
-    loadMicroApp: (container: string | HTMLElement, app: string | (import("qiankun").AppMetadata & {
+    loadMicroApp: (container: string | HTMLElement, app: string | (AppMetadata & {
         props?: {} | undefined;
     } & {
         render: import("qiankun").HTMLContentRender;
-    }) | (import("qiankun").AppMetadata & {
+    }) | (AppMetadata & {
         props?: {} | undefined;
     } & {
         container: string | HTMLElement;
