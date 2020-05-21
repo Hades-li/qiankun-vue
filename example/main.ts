@@ -19,7 +19,11 @@ const qiankunVue = new QiankunVue([
     entry: '//localhost:5002',
     activeRule: '/example'
   }
-])
+], {
+  sandbox: {
+    strictStyleIsolation: false
+  }
+})
 new Vue({
   router,
   store,

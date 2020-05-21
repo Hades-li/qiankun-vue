@@ -55,6 +55,7 @@ class QiankunVue {
   private microApp?: MicroApp // 当前手动加载的子应用
   private loadableApp?: LoadableApp // 当前读取的子应用属性
   private registerAppOpts: Array<RegisterAppOpt> = []
+  private config?: FrameworkConfiguration
   private isStart = false
   private renderCallback?: (appHtml: string) => void
   private afterMountedCallback?: (app: LoadableApp) => void
@@ -62,22 +63,23 @@ class QiankunVue {
   private errorCallback?: (err: { app: LoadableApp; msg: string }) => void
   public errorHandle?: (event: Event | string) => void
 
-  constructor(options: Array<RegisterAppOpt>) {
+  constructor(options: Array<RegisterAppOpt>, config?: FrameworkConfiguration) {
     this.registerAppOpts = options
+    this.config = config
   }
 
-  private render({appContent, loading}: { appContent: string; loading: boolean }) {
+  /*private render({appContent, loading}: { appContent: string; loading: boolean }) {
     if (appContent !== this.appHtml) {
       this.appHtml = appContent
       if (this.renderCallback) {
         this.renderCallback(appContent)
       }
     }
-  }
+  }*/
 
-  public renderSuccess = (callback: (appHtml: string) => void) => {
+  /*public renderSuccess = (callback: (appHtml: string) => void) => {
     this.renderCallback = callback
-  }
+  }*/
 
   public afterMounted = (callback: (app: LoadableApp) => void) => {
     this.afterMountedCallback = callback
@@ -135,12 +137,18 @@ class QiankunVue {
   // 手动加载子应用
   public loadMicroApp = (container: string | HTMLElement, app: string | LoadableApp, configuration?: FrameworkConfiguration) => {
     const regApp = this.registerAppOpts.find(item => item.activeRule === app) // 判断当前传入的app是否是已注册的
+    const sb = configuration?.sandbox as {strictStyleIsolation?: boolean}
+    /*let shadoRoot
+    if (sb.strictStyleIsolation) {
+
+    }*/
     if (regApp) {
       const loadableApp: LoadableApp = {
         name: regApp.name,
         entry: regApp.entry,
         container,
         props: {
+          container,
           mainInstance: this.mainApp,
           isFramework: true,
           callback: (appInstance: Vue) => {
@@ -151,10 +159,9 @@ class QiankunVue {
       }
       if (this.loadableApp?.name !== loadableApp.name) { // 判断当前传入的待加载app是否和上回的一样
         this.unmountApp().then(() => {
+
           this.microApp = loadMicroApp(loadableApp, {
-            sandbox: {
-              strictStyleIsolation: true
-            },
+            ...this.config,
             singular: true
           })
           this.loadableApp = loadableApp
@@ -199,7 +206,7 @@ class QiankunVue {
           _qiankunVue = this.$options.qiankunVue
           if (_qiankunVue) {
             _qiankunVue.mainApp = this
-            _qiankunVue.start()
+            // _qiankunVue.start()
           }
         }
       }

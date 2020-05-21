@@ -33,6 +33,7 @@ export async function bootstrap() {
  * 应用每次进入都会调用 mount 方法，通常我们在这里触发应用的渲染方法
  */
 export async function mount(props: any) {
+  const container = props.container.querySelector('#app')
   Vue.prototype.$isFramework = props.isFramework
   Vue.prototype.$mainApp = props.mainInstance
   if (!app) {
@@ -42,9 +43,8 @@ export async function mount(props: any) {
       store,
       render: (h) => h(App)
     })
-    console.log(router)
   }
-  app.$mount('#app')
+  app.$mount(container)
   props.callback(app)
 }
 
