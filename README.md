@@ -4,7 +4,8 @@ qiankun-vue是一个基于[qiankun](https://github.com/umijs/qiankun) 微前端�
 
 ## install
 ```shell
-yarn add qiankun-vue or npm install qiankun-vue --save
+yarn add qiankun-vue qiankun or npm install qiankun-vue qiankun --save
+
 ```
 ## use
 

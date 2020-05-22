@@ -166,7 +166,13 @@ const router = new Router({
     // }
   ]
 })
-router.onError((err) => {
-  console.log(err)
+router.onError((error) => {
+  const pattern = /Loading chunk (\d)+ failed/g
+  const isChunkLoadFailed = error.message.match(pattern)
+  const targetPath = router.history.pending.fullPath
+  debugger
+  if (isChunkLoadFailed) {
+    router.replace(targetPath)
+  }
 })
 export default router

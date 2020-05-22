@@ -58,6 +58,7 @@ class QiankunVue {
   private configuration?: FrameworkConfiguration
   private isStart = false
   // private renderCallback?: (appHtml: string) => void
+  private loadingCallback?: (app: LoadableApp) => void
   private afterMountedCallback?: (app: LoadableApp) => void
   private afterUnmountCallback?: (app: LoadableApp) => void
   private errorCallback?: (err: { app: LoadableApp; msg: string }) => void
@@ -80,6 +81,9 @@ class QiankunVue {
   /*public renderSuccess = (callback: (appHtml: string) => void) => {
     this.renderCallback = callback
   }*/
+  public loading = (callback: (app: LoadableApp) => void) => {
+    this.loadingCallback = callback
+  }
 
   public afterMounted = (callback: (app: LoadableApp) => void) => {
     this.afterMountedCallback = callback
@@ -137,11 +141,6 @@ class QiankunVue {
   // 手动加载子应用
   public loadMicroApp = (container: string | HTMLElement, app: string | LoadableApp, configuration?: FrameworkConfiguration) => {
     const regApp = this.registerAppOpts.find(item => item.activeRule === app) // 判断当前传入的app是否是已注册的
-    const sb = configuration?.sandbox as {strictStyleIsolation?: boolean}
-    /*let shadoRoot
-    if (sb.strictStyleIsolation) {
-
-    }*/
     if (regApp) {
       const loadableApp: LoadableApp = {
         name: regApp.name,
@@ -158,6 +157,9 @@ class QiankunVue {
         }
       }
       if (this.loadableApp?.name !== loadableApp.name) { // 判断当前传入的待加载app是否和上回的一样
+        if (this.loadingCallback) {
+          this.loadingCallback(loadableApp)
+        }
         this.unmountApp().then(() => {
 
           this.microApp = loadMicroApp(loadableApp, {

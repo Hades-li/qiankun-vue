@@ -12,6 +12,12 @@
     <li>
       <router-link to="/example">Example<br>(microApp)</router-link>
     </li>
+    <li>
+      <router-link to="/example/tree">Example/tree<br>(microApp)</router-link>
+    </li>
+    <li>
+      <router-link to="/example/table">Example/table<br>(microApp)</router-link>
+    </li>
   </ul>
 </template>
 

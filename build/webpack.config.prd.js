@@ -3,6 +3,7 @@ const baseConf = require('./webpack.config.base')
 const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 function resolve (dir) {
   return path.join(__dirname, '../', dir)
@@ -25,6 +26,11 @@ module.exports = merge(baseConf({ NODE_ENV: env }), {
       commonjs: 'vue',
       commonjs2: 'vue',
       amd: 'vue'
+    },
+    qiankun: {
+      commonjs: 'qiankun',
+      commonjs2: 'qiankun',
+      amd: 'qiankun'
     }
   },
   optimization: {
@@ -32,6 +38,7 @@ module.exports = merge(baseConf({ NODE_ENV: env }), {
   },
   plugins: [
     // 清理dist文件夹
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
+    new BundleAnalyzerPlugin()
   ]
 })

@@ -12,6 +12,7 @@ import store from '@/store'
 import router from '@/router'
 import '@/icons/components'
 import '@/permission'
+import {debug} from "webpack";
 
 Vue.use(ElementUI)
 Vue.use(SvgIcon, {

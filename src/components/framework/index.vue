@@ -12,6 +12,12 @@ import {Route} from "vue-router";
     name: 'Qiankun',
   })
 export default class extends Vue {
+    @Emit()
+    loading(app: LoadableApp) {
+      if (process.env.NODE_ENV === 'development') {
+        console.log(`[qiankun-vue] ${app.name} is loading`)
+      }
+    }
 
     @Emit()
     appMounted (app: LoadableApp) {
@@ -47,6 +53,9 @@ export default class extends Vue {
       this.$qiankunVue.unmountApp() // 卸载当前挂载的子应用
     }
     mounted () {
+      this.$qiankunVue.loading(app => {
+        this.loading(app)
+      })
       this.$qiankunVue.afterMounted(app => {
         this.appMounted(app)
       })
