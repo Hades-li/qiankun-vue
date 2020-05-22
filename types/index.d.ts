@@ -21,7 +21,6 @@ interface RegisterAppOpt {
     props?: any;
 }
 declare class QiankunVue {
-    appHtml: string;
     mainApp?: Vue;
     appMap: {
         [key: string]: any;
@@ -30,14 +29,13 @@ declare class QiankunVue {
     private microApp?;
     private loadableApp?;
     private registerAppOpts;
-    private config?;
+    private configuration?;
     private isStart;
-    private renderCallback?;
     private afterMountedCallback?;
     private afterUnmountCallback?;
     private errorCallback?;
     errorHandle?: (event: Event | string) => void;
-    constructor(options: Array<RegisterAppOpt>, config?: FrameworkConfiguration);
+    constructor(options: Array<RegisterAppOpt>, configuration?: FrameworkConfiguration);
     afterMounted: (callback: (app: LoadableApp<{}>) => void) => void;
     afterUnmounted: (callback: (app: LoadableApp<{}>) => void) => void;
     uncaughtError: (callback: (err: {

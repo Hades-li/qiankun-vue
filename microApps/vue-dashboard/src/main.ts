@@ -37,7 +37,6 @@ export async function mount(props: any) {
   Vue.prototype.$isFramework = props.isFramework
   Vue.prototype.$mainApp = props.mainInstance
   if (!app) {
-    console.log(router)
     app = new Vue({
       router,
       store,

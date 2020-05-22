@@ -43,29 +43,29 @@ interface RegisterAppOpt {
   props?: any;
 }
 
-function genActiveRule(url: string) {
+/*function genActiveRule(url: string) {
   return (localhost: Location) => localhost.pathname.startsWith(url)
-}
+}*/
 
 class QiankunVue {
-  public appHtml = ''
+  // public appHtml = ''
   public mainApp?: Vue
   public appMap: { [key: string]: any } = {} // 挂载的vue app 实例map
   public mountedApp: any = {} // 挂载的vue app
   private microApp?: MicroApp // 当前手动加载的子应用
   private loadableApp?: LoadableApp // 当前读取的子应用属性
   private registerAppOpts: Array<RegisterAppOpt> = []
-  private config?: FrameworkConfiguration
+  private configuration?: FrameworkConfiguration
   private isStart = false
-  private renderCallback?: (appHtml: string) => void
+  // private renderCallback?: (appHtml: string) => void
   private afterMountedCallback?: (app: LoadableApp) => void
   private afterUnmountCallback?: (app: LoadableApp) => void
   private errorCallback?: (err: { app: LoadableApp; msg: string }) => void
   public errorHandle?: (event: Event | string) => void
 
-  constructor(options: Array<RegisterAppOpt>, config?: FrameworkConfiguration) {
+  constructor(options: Array<RegisterAppOpt>, configuration?: FrameworkConfiguration) {
     this.registerAppOpts = options
-    this.config = config
+    this.configuration  = configuration
   }
 
   /*private render({appContent, loading}: { appContent: string; loading: boolean }) {
@@ -161,7 +161,7 @@ class QiankunVue {
         this.unmountApp().then(() => {
 
           this.microApp = loadMicroApp(loadableApp, {
-            ...this.config,
+            ...this.configuration,
             singular: true
           })
           this.loadableApp = loadableApp

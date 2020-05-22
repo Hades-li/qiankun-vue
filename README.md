@@ -113,15 +113,22 @@ const qiankunVue = new QiankunVue([
     entry: '//localhost:5001', // 子应用入口请求地址
     activeRule: '/dashboard' // 激活子应用的路由
   }
-],config)
+],configuration)
 ```
 
-`config`
+```typescript
+configuration : {
+  sandbox: boolean | {strictStyleIsolation: boolean} //开启沙盒，以及开启shadow dom模式
+  singular: boolean
+  ...
+}
+```
+`configuration `这个配置同和[qiankun](https://qiankun.umijs.org/zh/api/#%E6%89%8B%E5%8A%A8%E5%8A%A0%E8%BD%BD%E5%BE%AE%E5%BA%94%E7%94%A8) 的配置相同。
 
 注意：`strictStyleIsolation: true`，是采用[shadow dom](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components/Using_shadow_DOM), 对
-子应用进行样式隔离。但大多数vue项目，在生产环境下，css都是被提取出来，并且根据不同的组件进行动态加载。动态加载时，会将link标签直接加到页面根节点的head标签内。
+子应用进行样式隔离。但大多数vue项目，开发环境下style-loader会将样式提取成style，在生产环境下css会被提取，两者都会根据不同的组件切换进行动态加载。动态加载时，会将\<link\>\和<style\>直接加到页面根节点的\<head\>标签内。
 这样，由于子应用已经被shadow dom进行样式隔离了。因此，加载进入的css就不能作用到子应用上。就和qiankun中说的一样，不能无脑使用。使用`strictStyleIsolation: true`需要自行解决子应用的样式以及其他资源加载问题。
-比如一次性将整个子应用的资源全都写在生成的index.html上。
+比如在webpack处理时，去除css动态加载，一次性将整个子应用的资源全都直接生成在index.html里进行引用。
 
 
 
